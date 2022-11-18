@@ -239,7 +239,7 @@ public class ModuleDeploymentTest {
 
         File f = null;
         try {
-            File tmpFile = File.createTempFile("module",".jar");
+            File tmpFile = Files.createTempFile("module", ".jar").toFile();
             InputStream stream = managerService.getTemplatePackageById(JAHIA_TEST_MODULE).getResource(DUMMY_1_MODULE + V_2_0_0_JAR).getInputStream();
             FileUtils.copyInputStreamToFile(stream,  tmpFile);
             FileUtils.copyFileToDirectory(tmpFile, new File(settingsBean.getJahiaModulesDiskPath()));

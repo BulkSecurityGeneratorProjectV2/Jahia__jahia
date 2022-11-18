@@ -50,6 +50,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
+import java.nio.file.Files;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -103,7 +104,7 @@ public final class ZipEntryCharsetDetector {
     }
 
     private static boolean canRead(InputStream is, Charset charset) throws IOException {
-        File f = File.createTempFile(UUID.randomUUID() + ".zip", "");
+        File f = Files.createTempFile(UUID.randomUUID() + ".zip", "").toFile();
         FileUtils.copyInputStreamToFile(is, f);
 
         try {

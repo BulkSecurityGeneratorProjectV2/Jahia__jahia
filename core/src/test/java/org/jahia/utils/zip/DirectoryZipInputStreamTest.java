@@ -52,6 +52,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -94,7 +95,7 @@ public class DirectoryZipInputStreamTest {
     public void testDirectoryZipInputStream() throws IOException {
         createDirectoryZip();
 
-        File inputStreamFile = File.createTempFile("dirzip-input", null);
+        File inputStreamFile = Files.createTempFile("dirzip-input", null).toFile();
         FileInputStream fileInputStream = new FileInputStream(inputStreamFile);
         DirectoryZipInputStream directoryZipInputStream = new DirectoryZipInputStream(outputDirectory);
 
@@ -126,7 +127,7 @@ public class DirectoryZipInputStreamTest {
     }
 
     private void createDirectoryZip() throws IOException {
-        File outputStreamFile = File.createTempFile("dirzip-output", null);
+        File outputStreamFile = Files.createTempFile("dirzip-output", null).toFile();
         FileOutputStream fileOutputStream = new FileOutputStream(outputStreamFile);
 
         DirectoryZipOutputStream directoryZipOutputStream = new DirectoryZipOutputStream(outputDirectory, fileOutputStream);

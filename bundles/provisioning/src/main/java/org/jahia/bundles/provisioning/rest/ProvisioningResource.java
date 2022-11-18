@@ -61,6 +61,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,7 +113,7 @@ public class ProvisioningResource {
                 for (FormDataBodyPart file : files) {
                     //Creating temp file in order to define a specific name
                     final BodyPartEntity entity = file.getEntityAs(BodyPartEntity.class);
-                    File tmpFile = File.createTempFile("tmp-", "." + StringUtils.substringAfterLast(file.getFormDataContentDisposition().getFileName(), "."));
+                    File tmpFile = Files.createTempFile("tmp-", "." + StringUtils.substringAfterLast(file.getFormDataContentDisposition().getFileName(), ".")).toFile();
                     tmpFiles.add(tmpFile);
                     entity.moveTo(tmpFile);
                     resources.put(file.getFormDataContentDisposition().getFileName(), new FileSystemResource(tmpFile));

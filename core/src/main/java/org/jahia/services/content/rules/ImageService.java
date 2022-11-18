@@ -60,6 +60,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -206,7 +207,7 @@ public class ImageService {
 
         if (!square && isSmallerThan(imageNode.getNode(), size)) {
             // no need to resize the small image for thumbnail
-            final File f = File.createTempFile("thumb", StringUtils.isNotEmpty(fileExtension) ? "." + fileExtension : null, contentTempFolder);
+            final File f = Files.createTempFile(contentTempFolder.toPath(), "thumb", StringUtils.isNotEmpty(fileExtension) ? "." + fileExtension : null).toFile();
             JCRContentUtils.downloadFileContent(imageNode.getNode(), f);
             f.deleteOnExit();
 
@@ -218,7 +219,7 @@ public class ImageService {
             return null;
         }
 
-        final File f = File.createTempFile("thumb", StringUtils.isNotEmpty(fileExtension) ? "." + fileExtension : null, contentTempFolder);
+        final File f = Files.createTempFile(contentTempFolder.toPath(), "thumb", StringUtils.isNotEmpty(fileExtension) ? "." + fileExtension : null).toFile();
 
         if (imageService.createThumb(iw, f, size, square)) {
             f.deleteOnExit();

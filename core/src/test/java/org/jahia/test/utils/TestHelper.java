@@ -79,6 +79,7 @@ import javax.jcr.query.QueryResult;
 import javax.jcr.version.VersionException;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Set;
@@ -158,7 +159,7 @@ public class TestHelper {
                     while ((z = zis.getNextEntry()) != null) {
                         if (siteZIPName.equalsIgnoreCase(z.getName())
                                 || ImportExportBaseService.USERS_ZIP.equals(z.getName())) {
-                            File zipFile = File.createTempFile("import", ".zip");
+                            File zipFile = Files.createTempFile("import", ".zip").toFile();
                             os = new FileOutputStream(zipFile);
                             byte[] buf = new byte[4096];
                             int r;

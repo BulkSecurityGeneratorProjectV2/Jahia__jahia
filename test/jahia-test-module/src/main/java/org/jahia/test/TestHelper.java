@@ -76,6 +76,7 @@ import javax.jcr.nodetype.NoSuchNodeTypeException;
 import javax.jcr.version.VersionException;
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -154,7 +155,7 @@ public class TestHelper {
             while ((z = zis.getNextEntry()) != null) {
                 boolean isUsersZip = ImportExportBaseService.USERS_ZIP.equals(z.getName());
                 if (isUsersZip || siteZIPName.equalsIgnoreCase(z.getName())) {
-                    File zipFile = File.createTempFile("import", ".zip");
+                    File zipFile = Files.createTempFile("import", ".zip").toFile();
                     FileUtils.copyInputStreamToFile(zis, zipFile);
                     if (isUsersZip) {
                         sharedZIPFile = zipFile;

@@ -72,6 +72,7 @@ import javax.jcr.RepositoryException;
 import javax.servlet.ServletException;
 import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -178,7 +179,7 @@ public class SiteImportJob extends BackgroundJob {
             Map<File, String> imports = new HashMap<File, String>();
             List<File> importList = new ArrayList<File>();
             while ((z = zis.getNextEntry()) != null) {
-                File i = File.createTempFile("import", ".zip");
+                File i = Files.createTempFile("import", ".zip").toFile();
                 OutputStream os = new BufferedOutputStream(new FileOutputStream(i));
                 try {
                     IOUtils.copy(zis, os);
@@ -206,7 +207,7 @@ public class SiteImportJob extends BackgroundJob {
                     }
                     imports.clear();
                     importList.clear();
-                    File tempFile = File.createTempFile("import", ".zip");
+                    File tempFile = Files.createTempFile("import", ".zip").toFile();
                     InputStream is = getInputStream();
                     OutputStream tos = new BufferedOutputStream(new FileOutputStream(tempFile));
                     try {

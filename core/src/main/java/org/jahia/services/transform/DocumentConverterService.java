@@ -62,6 +62,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -207,7 +208,7 @@ public class DocumentConverterService implements ApplicationContextAware {
 
     protected File createTempFile() throws IOException {
         // todo: use fileCleaningTracker
-        return File.createTempFile("doc-converter", null);
+        return Files.createTempFile("doc-converter", null).toFile();
     }
 
     public String getMimeType(String extension) {

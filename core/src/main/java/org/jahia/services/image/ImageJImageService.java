@@ -62,6 +62,7 @@ import javax.jcr.RepositoryException;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 
 /**
  * ImageJ application operation implementation
@@ -99,7 +100,7 @@ public class ImageJImageService extends AbstractImageService {
             } else {
                 fileExtension = null;
             }
-            tmp = File.createTempFile("image", fileExtension);
+            tmp = Files.createTempFile("image", fileExtension).toFile();
             Node contentNode = node.getNode(Constants.JCR_CONTENT);
             os = new BufferedOutputStream(new FileOutputStream(tmp));
             InputStream is = contentNode.getProperty(Constants.JCR_DATA).getBinary().getStream();

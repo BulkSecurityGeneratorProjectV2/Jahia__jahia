@@ -783,7 +783,7 @@ public final class ImportExportBaseService extends JahiaService implements Impor
         final boolean noRecurse = Boolean.TRUE.equals(params.get(NO_RECURSE));
 
         String filename = Patterns.SPACE.matcher(rootNode.getName()).replaceAll("_");
-        File tempFile = File.createTempFile("exportTemplates-" + filename, ".xml");
+        File tempFile = Files.createTempFile("exportTemplates-" + filename, ".xml").toFile();
 
         try (OutputStream tmpOut = xsl != null ? new DeferredFileOutputStream(1024 * 1024 * 10, tempFile) : outputStream) {
             DataWriter dw = new DataWriter(new OutputStreamWriter(tmpOut, StandardCharsets.UTF_8));
@@ -1882,7 +1882,7 @@ public final class ImportExportBaseService extends JahiaService implements Impor
         File tempFile = null;
 
         try {
-            tempFile = File.createTempFile("import-xml-", ".xml");
+            tempFile = Files.createTempFile("import-xml-", ".xml").toFile();
             try (FileOutputStream fileOutputStream = new FileOutputStream(tempFile)) {
                 IOUtils.copy(content, fileOutputStream);
             }
@@ -1976,7 +1976,7 @@ public final class ImportExportBaseService extends JahiaService implements Impor
 
         try {
             // Copy to temp file to validate filename extraction targets
-            tempFile = File.createTempFile("import", ".zip");
+            tempFile = Files.createTempFile("import", ".zip").toFile();
             FileUtils.copyToFile(is, tempFile);
             zipFile = new ZipFile(tempFile);
 

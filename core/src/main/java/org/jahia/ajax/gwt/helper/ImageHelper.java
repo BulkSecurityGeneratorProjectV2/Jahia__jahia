@@ -58,6 +58,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Locale;
 
 public class ImageHelper {
@@ -89,7 +90,7 @@ public class ImageHelper {
             } else {
                 fileExtension = null;
             }
-            File f = File.createTempFile("image", fileExtension);
+            File f = Files.createTempFile("image", fileExtension).toFile();
             imageService.cropImage(image, f, top, left, width, height);
 
             InputStream fis = new BufferedInputStream(new FileInputStream(f));
@@ -123,7 +124,7 @@ public class ImageHelper {
             } else {
                 fileExtension = null;
             }
-            File f = File.createTempFile("image", fileExtension);
+            File f = Files.createTempFile("image", fileExtension).toFile();
             imageService.resizeImage(image, f, width, height, ResizeType.SCALE_TO_FILL);
 
             InputStream fis = new BufferedInputStream(new FileInputStream(f));
@@ -157,7 +158,7 @@ public class ImageHelper {
             } else {
                 fileExtension = null;
             }
-            File f = File.createTempFile("image", fileExtension);
+            File f = Files.createTempFile("image", fileExtension).toFile();
             imageService.rotateImage(image, f, clockwise);
 
             InputStream fis = new BufferedInputStream(new FileInputStream(f));

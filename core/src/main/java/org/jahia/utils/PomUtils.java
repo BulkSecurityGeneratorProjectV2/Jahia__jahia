@@ -59,6 +59,7 @@ import org.w3c.dom.Node;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
@@ -366,7 +367,7 @@ public final class PomUtils {
             throw new IOException("unable to find pom.xml file within while looking for " + artifactId);
         }
         InputStream is = jar.getInputStream(jarEntry);
-        File pomFile = File.createTempFile("pom", ".xml");
+        File pomFile = Files.createTempFile("pom", ".xml").toFile();
         FileUtils.copyInputStreamToFile(is, pomFile);
         return pomFile;
     }

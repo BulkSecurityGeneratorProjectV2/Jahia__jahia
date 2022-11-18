@@ -90,6 +90,7 @@ import javax.jcr.Value;
 import javax.xml.transform.TransformerException;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
@@ -318,7 +319,7 @@ public class ModuleBuildHelper implements InitializingBean {
         File pomFile = null;
         try {
             if (!StringUtils.isEmpty(releaseInfo.getUsername()) && !StringUtils.isEmpty(releaseInfo.getPassword())) {
-                settings = File.createTempFile("settings", ".xml");
+                settings = Files.createTempFile("settings", ".xml").toFile();
                 try (BufferedWriter w = new BufferedWriter(new FileWriter(settings))) {
                     w.write("<settings><servers><server><id>" + releaseInfo.getRepositoryId() + "</id><username>");
                     w.write(releaseInfo.getUsername());
@@ -791,7 +792,7 @@ public class ModuleBuildHelper implements InitializingBean {
     public void regenerateImportFile(JCRSessionWrapper session, List<File> modifiedFiles, File sources,
                                      String moduleId, String moduleIdWithVersion) throws RepositoryException, SAXException, IOException,
             TransformerException, JahiaForbiddenAccessException {
-        File f = File.createTempFile("import", null);
+        File f = Files.createTempFile("import", null).toFile();
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(ImportExportService.XSL_PATH, SettingsBean.getInstance().getJahiaEtcDiskPath() + "/repository/export/templatesCleanup.xsl");

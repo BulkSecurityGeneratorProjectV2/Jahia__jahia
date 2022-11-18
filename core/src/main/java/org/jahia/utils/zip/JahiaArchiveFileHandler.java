@@ -57,6 +57,7 @@ import org.jahia.exceptions.JahiaArchiveFileException;
 import org.jahia.exceptions.JahiaException;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -262,7 +263,7 @@ public class JahiaArchiveFileHandler {
             InputStream ins = jarFile.getInputStream(entry);
 
             if (ins != null) {
-                tmpFile = File.createTempFile("jahia_temp", ".jar", null);
+                tmpFile = Files.createTempFile("jahia_temp", ".jar").toFile();
 
                 if (tmpFile == null || !tmpFile.canWrite()) {
                     throw new IOException(

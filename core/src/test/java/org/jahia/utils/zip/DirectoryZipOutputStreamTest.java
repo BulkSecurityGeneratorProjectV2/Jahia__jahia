@@ -51,6 +51,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -84,7 +85,7 @@ public class DirectoryZipOutputStreamTest {
 
     @Test
     public void testDirectoryZipOutputStream() throws IOException {
-        File outputStreamFile = File.createTempFile("dirzip-output", null);
+        File outputStreamFile = Files.createTempFile("dirzip-output", null).toFile();
         FileOutputStream fileOutputStream = new FileOutputStream(outputStreamFile);
 
         DirectoryZipOutputStream directoryZipOutputStream = new DirectoryZipOutputStream(outputDirectory, fileOutputStream);

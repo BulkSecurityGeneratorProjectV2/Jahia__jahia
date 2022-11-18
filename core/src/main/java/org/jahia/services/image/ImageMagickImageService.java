@@ -63,6 +63,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.List;
 
 /**
@@ -96,8 +97,8 @@ public class ImageMagickImageService extends AbstractImageService {
     public Image getImage(JCRNodeWrapper node) throws IOException, RepositoryException {
         Node contentNode = node.getNode(Constants.JCR_CONTENT);
         String fileExtension = FilenameUtils.getExtension(node.getName());
-        File tmp = File.createTempFile("image", StringUtils.isNotEmpty(fileExtension) ? "."
-                + fileExtension : null);
+        File tmp = Files.createTempFile("image", StringUtils.isNotEmpty(fileExtension) ? "."
+                + fileExtension : null).toFile();
         InputStream is = contentNode.getProperty(Constants.JCR_DATA).getStream();
         OutputStream os = new BufferedOutputStream(new FileOutputStream(tmp));
         try {

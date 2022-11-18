@@ -59,6 +59,7 @@ import javax.jcr.RepositoryException;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -100,7 +101,7 @@ public class ZipHelper {
         List<String> missedPaths;
         File tmp = null;
         try {
-            tmp = File.createTempFile("jahiazip", ".zip");
+            tmp = Files.createTempFile("jahiazip", ".zip").toFile();
             missedPaths = zipRequestedFilesInTmpArchiveFile(parentDirectory, files, tmp);
             // zipOutputStream is closed by previous try-with-resources
             // Copy tmp file into zipName
@@ -198,7 +199,7 @@ public class ZipHelper {
             }
 
             is = fileContent.downloadFile();
-            f = File.createTempFile(UUID.randomUUID() + ".zip", "");
+            f = Files.createTempFile(UUID.randomUUID() + ".zip", "").toFile();
             FileUtils.copyInputStreamToFile(is, f);
             zip = new ZipFile(f, charset);
             return doUnzipContent(zip, destination.getPath(), currentUserSession);

@@ -71,6 +71,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,7 +108,7 @@ public class ExternalUsersImportUpdater extends ImportFileUpdater {
         ZipOutputStream zout = null;
         boolean updated = false;
         try {
-            newImportFile = File.createTempFile("import", ".zip");
+            newImportFile = Files.createTempFile("import", ".zip").toFile();
             zin = importFile.isDirectory() ? new DirectoryZipInputStream(importFile) : new NoCloseZipInputStream(new BufferedInputStream(new FileInputStream(importFile)));
             out = new FileOutputStream(newImportFile);
             zout = new ZipOutputStream(out);
@@ -158,7 +159,7 @@ public class ExternalUsersImportUpdater extends ImportFileUpdater {
                             }
                         }
                     }
-                    File content = File.createTempFile("content", null);
+                    File content = Files.createTempFile("content", null).toFile();
                     IOUtils.copy(zin, new FileOutputStream(content));
                     zout.putNextEntry(new ZipEntry(name));
                     IOUtils.copy(new FileInputStream(content), zout);
